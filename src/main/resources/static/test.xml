@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cv24 xmlns="http://univ.fr/cv24">
+    <identite>
+        <genre>Mme</genre>
+        <nom>ORANGZE</nom>
+        <prenom>Izana</prenom>
+        <tel>0123458789</tel>
+        <mel>mail@default.com</mel>
+    </identite>
+    <objectif statut="stage">Developpeur</objectif>
+    <prof>
+        <detail>
+            <datedeb>2001-01-01T00:00:00</datedeb>
+            <datefin>2001-01-01T00:00:00</datefin>
+            <titreDetail>Stage developpeur</titreDetail>
+        </detail>
+    </prof>
+    <competences>
+        <diplome niveau="5">
+            <date>2001-01-01</date>
+            <institut>Lycee Blaise</institut>
+            <titre>Bac L</titre>
+        </diplome>
+        <diplome niveau="6">
+            <date>2001-01-01</date>
+            <institut>Lycee Blaise</institut>
+            <titre>BTS PP</titre>
+        </diplome>
+        <diplome niveau="8">
+            <date>2001-01-01</date>
+            <institut>Lycee Blaise</institut>
+            <titre>PREPA PTSI</titre>
+        </diplome>
+        <certif>
+            <datedeb>2001-01-01T00:00:00</datedeb>
+            <datefin>2001-01-01T00:00:00</datefin>
+            <titreCert>Bac S</titreCert>
+        </certif>
+    </competences>
+    <divers>
+        <lv cert="MAT" lang="Francais" nivs="C1"/>
+        <autre comment="lalka" titre="fddf"/>
+    </divers>
+</cv24>

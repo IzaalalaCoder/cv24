@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://univ.fr/cv24" xmlns="http://univ.fr/cv24">
+
+    <!-- Elements -->
+
+    <xs:element name="cv24" type="cvType"/>
+    <xs:element name="identite" type="idType"/>
+    <xs:element name="genre" type="genreType" default="M."/>
+    <xs:element name="nom" type="String32majType"/>
+    <xs:element name="prenom" type="String32Type"/>
+    <xs:element name="tel" default="0123456789" type="numberTelType"/>
+    <xs:element name="mel" default="mail@default.com" type="melType"/>
+    <xs:element name="objectif" type="objectifType"/>
+    <xs:element name="prof" type="professionType" />
+    <xs:element name="detail" type="detailType" />
+    <xs:element name="datedeb" type="xs:dateTime"/>
+    <xs:element name="datefin" type="xs:dateTime"/>
+    <xs:element name="titreCert" type="String32Type"/>
+    <xs:element name="titreDetail" type="String128Type"/>
+    <xs:element name="competences" type="competencesType"/>
+    <xs:element name="diplome" type="diplomeType"/>
+    <xs:element name="date" type="xs:date"/>
+    <xs:element name="institut" type="String32Type"/>
+    <xs:element name="titre" type="String32Type"/>
+    <xs:element name="certif" type="certifType"/>
+    <xs:element name="divers" type="diversType"/>
+    <xs:element name="lv" type="lvType"/>
+    <xs:element name="autre" type="autreType"/>
+
+    <!-- Types -->
+
+    <xs:complexType name="cvType">
+        <xs:all>
+            <xs:element ref="identite"/>
+            <xs:element ref="objectif"/>
+            <xs:element ref="prof" minOccurs="0"/>
+            <xs:element ref="competences"/>
+            <xs:element ref="divers" minOccurs="0"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="idType">
+        <xs:sequence>
+            <!-- genre, nom, prenom, tel, mel -->
+            <xs:element ref="genre"/>
+            <xs:element ref="nom"/>
+            <xs:element ref="prenom"/>
+            <xs:element ref="tel" minOccurs="0"/>
+            <xs:element ref="mel" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="objectifType" mixed="true">
+        <xs:simpleContent>
+            <xs:extension base="String128Type">
+                <xs:attribute name="statut" type="statutType" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="professionType">
+        <xs:sequence>
+            <xs:element ref="detail" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="detailType">
+        <xs:sequence>
+            <xs:element ref="datedeb"/>
+            <xs:element ref="datefin" minOccurs="0"/>
+            <xs:element ref="titreDetail"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="certifType">
+        <xs:sequence>
+            <xs:element ref="datedeb"/>
+            <xs:element ref="datefin" minOccurs="0"/>
+            <xs:element ref="titreCert"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="competencesType">
+        <xs:sequence>
+            <xs:element ref="diplome" maxOccurs="5"/>
+            <xs:element ref="certif" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="diplomeType" mixed="true">
+        <xs:sequence>
+            <xs:element ref="date"/>
+            <xs:element ref="institut" minOccurs="0"/>
+            <xs:element ref="titre"/>
+        </xs:sequence>
+        <xs:attribute name="niveau" type="niveauType" default="1"/>
+    </xs:complexType>
+
+    <xs:complexType name="diversType">
+        <xs:sequence>
+            <xs:element ref="lv" maxOccurs="5"/>
+            <xs:element ref="autre" minOccurs="0" maxOccurs="3"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="lvType">
+        <xs:attribute name="lang" type="xs:string" use="required"/>
+        <xs:attribute name="cert" type="certSimpleType" use="required"/>
+        <xs:attribute name="nivs" type="nivsType" default="A1"/>
+        <xs:attribute name="nivi" type="niviType" default="50"/>
+    </xs:complexType>
+
+    <xs:complexType name="autreType">
+        <xs:attribute name="titre" type="String32Type" use="required"/>
+        <xs:attribute name="comment" type="String128Type"/>
+    </xs:complexType>
+
+    <!-- Types simples -->
+
+    <xs:simpleType name="genreType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="M.|Mme"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="statutType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="stage|emploi"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="String32Type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="32"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="String128Type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="128"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="String32majType">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="32"/>
+            <xs:pattern value="[A-Z]*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="certSimpleType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="MAT"/>
+            <xs:enumeration value="CLES"/>
+            <xs:enumeration value="TOEIC"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="nivsType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="A1"/>
+            <xs:enumeration value="A2"/>
+            <xs:enumeration value="B1"/>
+            <xs:enumeration value="B2"/>
+            <xs:enumeration value="C1"/>
+            <xs:enumeration value="C2"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="niviType">
+        <xs:restriction base="xs:integer">
+            <xs:minExclusive value="9"/>
+            <xs:maxExclusive value="991"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="niveauType">
+        <xs:restriction base="xs:integer">
+            <xs:minExclusive value="0"/>
+            <xs:maxExclusive value="9"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="nivQualifType">
+        <xs:restriction base="xs:integer">
+            <xs:minExclusive value="0"/>
+            <xs:maxExclusive value="9"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="numberTelType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="0[1-9]{9}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="melType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[-_.A-Za-z0-9]+@[-_.A-Za-z0-9]+\.[a-z]{2,3}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
