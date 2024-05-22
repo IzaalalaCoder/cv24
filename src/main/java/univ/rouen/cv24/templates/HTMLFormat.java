@@ -1,6 +1,5 @@
 package univ.rouen.cv24.templates;
 
-import jakarta.persistence.Id;
 import univ.rouen.cv24.entity.*;
 
 public class HTMLFormat implements Page {
@@ -29,8 +28,7 @@ public class HTMLFormat implements Page {
     public String getInformationOnObjective(Objectif objectif) {
         String informationOnObjectif = "<div class=\"objectif\">" +
                 "<h2>Poste recherché</h2>" +
-                "<p>" + objectif.getStatut().getValue() + " </p>" +
-                "<p>" + objectif.getDescription() + "</p>";
+                "<p> Un " + objectif.getStatut().getValue() + " en tant que " + objectif.getDescription() + "</p>";
 
         informationOnObjectif += "</div>";
 
@@ -50,7 +48,7 @@ public class HTMLFormat implements Page {
             detail += "<h3>" + d.getTitreDetail() + "</h3>";
             detail += "<p>" + d.getDatedeb();
             if (d.getDatefin() != null) {
-                detail += "|" + d.getDatefin();
+                detail += " | " + d.getDatefin();
             }
             detail += "</p>";
             detail += "</div>";
@@ -69,7 +67,7 @@ public class HTMLFormat implements Page {
             }
         }
 
-        return "<div class=\"diplome\"> <h2>Diplome</h2><p>Diplome le plus haut : "
+        return "<div class=\"diplomes\"> <h2>Diplome</h2><p>Diplome le plus haut : "
                 + maxDiplome.getTitre() + "</p></div>";
     }
 

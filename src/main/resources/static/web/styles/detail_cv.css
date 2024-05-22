@@ -8,13 +8,36 @@ body {
 }
 
 /* Sections */
-.cv {
+.cv, .info {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 20px auto;
-    max-width: 800px;
+    width: 90%;
     padding: 20px;
+}
+
+.info a {
+    border: 1px solid;
+    padding: 8px;
+    position: relative;
+    display: block;
+    width: 15px;
+    background: beige;
+    height: 15px;
+    text-align: center;
+    top: -25px;
+    border-radius: 50px;
+    left: -31px;
+}
+
+.info div, .info div div {
+    width: 95%;
+    margin: 5px auto auto;
+}
+
+.info {
+    border: 1px solid black;
 }
 
 .identity, .objectif, .details, .diplomes, .certifs, .langs, .comments {

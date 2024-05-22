@@ -33,18 +33,18 @@ public class CvController {
         Page p = new HTMLFormat();
         String head = "<head> <meta charset=\"UTF-8\">" +
                 " <title> Liste de CV </title> " +
-                " <link rel=\"stylesheet\" href=\"/web/styles/cv_list.css\"> " +
+                " <link rel=\"stylesheet\" href=\"/web/styles/detail_cv.css\"> " +
                 "</head>";
 
         StringBuilder body = new StringBuilder("<body>");
         for (Cv cv : this.cvService.getAllCvs()) {
-            body.append("<div class=\"cv\"><a href=\"http://localhost:8080/cv24/html?id=")
+            body.append("<div class=\"info\"><a href=\"http://localhost:8080/cv24/html?id=")
                 .append(cv.getId()).append("\" id=\"cv_id\">").append(cv.getId()).append("</a>");
-
+            body.append("<div>");
             body.append(p.getInformationOnIdentity(cv.getIdentite(), false));
             body.append(p.getInformationOnObjective(cv.getObjectif()));
             body.append(p.getInformationOnMaxDiploma(cv.getCompetences()));
-            body.append("</div>");
+            body.append("</div></div>");
         }
 
         String result = "<html>" + head + body + "</body>";
@@ -85,17 +85,30 @@ public class CvController {
             body.append("<div class=\"cv\">");
             body.append(p.getInformationOnIdentity(cv.getIdentite(), true));
             body.append(p.getInformationOnObjective(cv.getObjectif()));
-            body.append("<h2>Les professions</h2>");
-            body.append(p.getInformationOnProfession(cv.getProf()));
+
+            if (cv.getProf() != null) {
+                body.append("<h2>Les professions</h2>");
+                body.append(p.getInformationOnProfession(cv.getProf()));
+            }
+
             body.append("<h2>Les diplomes</h2>");
             body.append(p.getAllInformationOnDiplomas(cv.getCompetences()));
-            body.append("<h2>Les certificats</h2>");
-            body.append(p.getAllInformationOnCertificate(cv.getCompetences()));
-            body.append("<h2>Les langues</h2>");
-            body.append(p.getAllInformationOnLanguages(cv.getDivers()));
-            body.append("<h2>Les informations complémentaires</h2>");
-            body.append(p.getAllComplementaryInformation(cv.getDivers()));
+            if (cv.getCompetences().getCertif() != null && !cv.getCompetences().getCertif().isEmpty()) {
+                body.append("<h2>Les certificats</h2>");
+                body.append(p.getAllInformationOnCertificate(cv.getCompetences()));
+            }
+
+            if (cv.getDivers() != null) {
+                body.append("<h2>Les langues</h2>");
+                body.append(p.getAllInformationOnLanguages(cv.getDivers()));
+
+                if (cv.getDivers().getAutre() != null && !cv.getDivers().getAutre().isEmpty()) {
+                    body.append("<h2>Les informations complémentaires</h2>");
+                    body.append(p.getAllComplementaryInformation(cv.getDivers()));
+                }
+            }
             body.append("</div>");
+
         } else {
             body.append("<div id=\"error\"> ").append(id).append(" | ERROR </div>");
         }
@@ -113,12 +126,21 @@ public class CvController {
         if (cv != null) {
             Page p = new XMLFormat();
             result += p.getInformationOnIdentity(cv.getIdentite(), true)
-                    + p.getInformationOnObjective(cv.getObjectif())
-                    + p.getInformationOnProfession(cv.getProf())
-                    + p.getAllInformationOnDiplomas(cv.getCompetences())
-                    + p.getAllInformationOnCertificate(cv.getCompetences())
-                    + p.getAllInformationOnLanguages(cv.getDivers())
-                    + p.getAllComplementaryInformation(cv.getDivers());
+                    + p.getInformationOnObjective(cv.getObjectif());
+            if (cv.getProf() != null) {
+                result += p.getInformationOnProfession(cv.getProf());
+            }
+            result += p.getAllInformationOnDiplomas(cv.getCompetences());
+
+            if (cv.getCompetences().getCertif() != null && !cv.getCompetences().getCertif().isEmpty()) {
+                result += p.getAllInformationOnCertificate(cv.getCompetences());
+            }
+            if (cv.getDivers() != null) {
+                result += p.getAllInformationOnLanguages(cv.getDivers());
+                if (cv.getDivers().getAutre() != null && !cv.getDivers().getAutre().isEmpty()) {
+                    result += p.getAllComplementaryInformation(cv.getDivers());
+                }
+            }
         } else {
             result += "<status>ERROR</status>";
         }
