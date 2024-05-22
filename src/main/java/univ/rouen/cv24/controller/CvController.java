@@ -47,7 +47,8 @@ public class CvController {
             body.append("</div></div>");
         }
 
-        String result = "<html>" + head + body + "</body>";
+        String returnHome ="<footer><a href=\"http://localhost:8080/\">Retour sur la page d'accueil</a></footer>";
+        String result = "<html>" + head + body + returnHome + "</body>";
         return ResponseEntity.status(HttpStatus.OK.value()).body(result);
     }
 
@@ -112,7 +113,9 @@ public class CvController {
         } else {
             body.append("<div id=\"error\"> ").append(id).append(" | ERROR </div>");
         }
-        String result = "<html>" + head + body + "</body>";
+
+        String returnHome = "<footer><a href=\"http://localhost:8080/\">Retour sur la page d'accueil</a></footer>";
+        String result = "<html>" + head + body + returnHome + "</body>";
 
         int valueStatus = cv != null ? HttpStatus.OK.value() : HttpStatus.NOT_FOUND.value();
         return ResponseEntity.status(valueStatus).body(result);
