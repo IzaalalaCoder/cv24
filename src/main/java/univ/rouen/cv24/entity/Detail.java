@@ -19,16 +19,32 @@ public class Detail {
     @XmlTransient
     private Integer id;
 
-    @XmlElement
+    @XmlElement(namespace = "http://univ.fr/cv24")
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime datedeb;
 
-    @XmlElement
+    @XmlElement(namespace = "http://univ.fr/cv24")
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime datefin;
 
     @XmlElement(namespace = "http://univ.fr/cv24")
     private String titreDetail;
+
+    public Detail() {
+
+    }
+
+    public LocalDateTime getDatefin() {
+        return datefin;
+    }
+
+    public LocalDateTime getDatedeb() {
+        return datedeb;
+    }
+
+    public String getTitreDetail() {
+        return titreDetail;
+    }
 
     // Getters and Setters
 }

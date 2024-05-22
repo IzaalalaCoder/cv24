@@ -17,14 +17,36 @@ public class Lv {
     @XmlAttribute
     private CertType cert;
 
-    @XmlAttribute(namespace = "http://univ.fr/cv24")
+    @XmlAttribute
     private String lang;
 
-    @XmlAttribute(namespace = "http://univ.fr/cv24")
+    @XmlAttribute
     private int nivi;
 
     @XmlAttribute
     private NivsType nivs;
 
-    // Getters and Setters
+    public CertType getCert() {
+        return cert;
+    }
+
+    public Integer getNivi() {
+        return nivi;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public NivsType getNivs() {
+        return nivs;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public Lv() {
+
+    }
 }

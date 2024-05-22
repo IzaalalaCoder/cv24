@@ -1,15 +1,11 @@
 package univ.rouen.cv24.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import univ.rouen.cv24.util.LocalDateTimeAdapter;
-
-import java.time.LocalDateTime;
+import univ.rouen.cv24.util.DateAdapter;
+import java.util.Date;
 
 @Entity
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -20,9 +16,10 @@ public class Diplome {
     @XmlTransient
     private Integer id;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @XmlElement(namespace = "http://univ.fr/cv24")
-    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-    private LocalDateTime date;
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    private Date date;
 
     @XmlElement(namespace = "http://univ.fr/cv24")
     private String institut;
@@ -37,14 +34,19 @@ public class Diplome {
 
     }
 
-    // Getters and Setters
-
-
     public Integer getNiveau() {
         return niveau;
     }
 
     public String getTitre() {
         return titre;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public String getInstitut() {
+        return institut;
     }
 }

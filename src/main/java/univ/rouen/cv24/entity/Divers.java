@@ -23,4 +23,14 @@ public class Divers {
     private List<Autre> autre;
 
     // Getters and Setters
+
+    public Divers() {}
+
+    public List<Autre> getAutre() {
+        return autre;
+    }
+
+    public List<Lv> getLv() {
+        return lv;
+    }
 }

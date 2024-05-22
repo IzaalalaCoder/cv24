@@ -17,4 +17,11 @@ public class Prof {
     @XmlElement(namespace = "http://univ.fr/cv24")
     private List<Detail> detail;
 
+    public Prof() {
+
+    }
+
+    public List<Detail> getDetail() {
+        return detail;
+    }
 }

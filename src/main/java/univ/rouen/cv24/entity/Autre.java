@@ -15,11 +15,21 @@ public class Autre {
     @XmlTransient
     private Integer id;
 
-    @XmlAttribute(namespace = "http://univ.fr/cv24")
+    @XmlAttribute
     private String comment;
 
-    @XmlAttribute(namespace = "http://univ.fr/cv24")
+    @XmlAttribute
     private String titre;
 
     // Getters and Setters
+
+    public Autre() {}
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public String getComment() {
+        return comment;
+    }
 }

@@ -27,4 +27,8 @@ public class Competences {
     public List<Diplome> getDiplome() {
         return diplome;
     }
+
+    public List<Certif> getCertif() {
+        return certif;
+    }
 }

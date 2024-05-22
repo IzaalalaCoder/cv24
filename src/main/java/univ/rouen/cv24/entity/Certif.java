@@ -31,4 +31,18 @@ public class Certif {
     private String titreCert;
 
     // Getters and Setters
+
+    public Certif() {}
+
+    public LocalDateTime getDatedeb() {
+        return datedeb;
+    }
+
+    public String getTitreCert() {
+        return titreCert;
+    }
+
+    public LocalDateTime getDatefin() {
+        return datefin;
+    }
 }

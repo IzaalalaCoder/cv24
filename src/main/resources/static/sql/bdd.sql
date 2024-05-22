@@ -8,7 +8,7 @@ USE cv24;
 
 CREATE TABLE identite (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    genre VARCHAR(5),
+    genre TINYINT,
     nom VARCHAR(32),
     prenom VARCHAR(32),
     tel VARCHAR(15),
@@ -18,7 +18,7 @@ CREATE TABLE identite (
 CREATE TABLE objectif (
     id INT AUTO_INCREMENT PRIMARY KEY,
     description VARCHAR(128),
-    statut VARCHAR(7)
+    statut TINYINT
 );
 
 CREATE TABLE detail (
@@ -33,11 +33,11 @@ CREATE TABLE competences (
 );
 
 CREATE TABLE diplome (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    date DATE,
-    institut VARCHAR(32),
-    titre VARCHAR(32),
-    niveau INT
+     id INT AUTO_INCREMENT PRIMARY KEY,
+     date DATE,
+     institut VARCHAR(32),
+     titre VARCHAR(32),
+     niveau INT
 );
 
 CREATE TABLE certif (
@@ -54,19 +54,15 @@ CREATE TABLE divers (
 CREATE TABLE lv (
     id INT AUTO_INCREMENT PRIMARY KEY,
     lang VARCHAR(32),
-    cert VARCHAR(5),
-    nivs VARCHAR(2),
-    nivi INT,
-    divers_id INT,
-    FOREIGN KEY (divers_id) REFERENCES divers(id)
+    cert TINYINT,
+    nivs TINYINT,
+    nivi INT
 );
 
 CREATE TABLE autre (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titre VARCHAR(32),
-    comment VARCHAR(128),
-    divers_id INT,
-    FOREIGN KEY (divers_id) REFERENCES divers(id)
+    comment VARCHAR(128)
 );
 
 CREATE TABLE divers_autre (
@@ -85,18 +81,6 @@ CREATE TABLE divers_lv (
     FOREIGN KEY (lv_id) REFERENCES lv(id)
 );
 
-CREATE TABLE cv (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    competences_id INT,
-    identite_id INT,
-    objectif_id INT,
-    divers_id INT,
-    FOREIGN KEY (competences_id) REFERENCES competences(id),
-    FOREIGN KEY (identite_id) REFERENCES identite(id),
-    FOREIGN KEY (objectif_id) REFERENCES objectif(id),
-    FOREIGN KEY (divers_id) REFERENCES divers(id)
-);
-
 CREATE TABLE prof (
     id INT AUTO_INCREMENT PRIMARY KEY
 );
@@ -107,14 +91,6 @@ CREATE TABLE prof_detail (
     PRIMARY KEY (prof_id, detail_id),
     FOREIGN KEY (prof_id) REFERENCES prof(id),
     FOREIGN KEY (detail_id) REFERENCES detail(id)
-);
-
-CREATE TABLE cv_prof (
-    cv_id INT,
-    prof_id INT,
-    PRIMARY KEY (cv_id, prof_id),
-    FOREIGN KEY (cv_id) REFERENCES cv(id),
-    FOREIGN KEY (prof_id) REFERENCES prof(id)
 );
 
 CREATE TABLE competences_diplome (
@@ -131,4 +107,18 @@ CREATE TABLE competences_certif (
     PRIMARY KEY (competences_id, certif_id),
     FOREIGN KEY (competences_id) REFERENCES competences(id),
     FOREIGN KEY (certif_id) REFERENCES certif(id)
+);
+
+CREATE TABLE cv (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    competences_id INT,
+    identite_id INT,
+    objectif_id INT,
+    prof_id INT,
+    divers_id INT,
+    FOREIGN KEY (competences_id) REFERENCES competences(id),
+    FOREIGN KEY (identite_id) REFERENCES identite(id),
+    FOREIGN KEY (objectif_id) REFERENCES objectif(id),
+    FOREIGN KEY (prof_id) REFERENCES prof(id),
+    FOREIGN KEY (divers_id) REFERENCES divers(id)
 );

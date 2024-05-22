@@ -24,9 +24,9 @@ public class Cv {
     @XmlElement(namespace = "http://univ.fr/cv24")
     private Objectif objectif;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @XmlElement(namespace = "http://univ.fr/cv24")
-    private List<Prof> prof;
+    private Prof prof;
 
     @OneToOne(cascade = CascadeType.ALL)
     @XmlElement(namespace = "http://univ.fr/cv24")
@@ -53,5 +53,13 @@ public class Cv {
 
     public Integer getId() {
         return id;
+    }
+
+    public Divers getDivers() {
+        return divers;
+    }
+
+    public Prof getProf() {
+        return prof;
     }
 }

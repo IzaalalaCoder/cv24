@@ -46,4 +46,8 @@ public class Identite {
     public String getTel() {
         return tel;
     }
+
+    public String getMel() {
+        return mel;
+    }
 }

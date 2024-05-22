@@ -1,0 +1,95 @@
+/* Style général */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Sections */
+.cv {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.identity, .objectif, .details, .diplomes, .certifs, .langs, .comments {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+/* Titres */
+h2, h3 {
+    color: #007bff;
+}
+
+/* Liens */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Paragraphe */
+p {
+    margin: 5px 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Grille pour les diplômes et les certificats */
+.diplomes, .certifs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.diplomes div, .certifs div {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.diplomes h3, .certifs h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.diplomes p, .certifs p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Section d'erreur */
+#error {
+    background-color: #ffcccc; /* Couleur de fond */
+    color: #cc0000; /* Couleur du texte */
+    text-align: center; /* Centrer le texte */
+    padding: 20px; /* Ajouter de l'espace intérieur */
+    margin: 50px auto; /* Centrer horizontalement avec une marge autour */
+    max-width: 400px; /* Largeur maximale */
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
+/* Style pour le titre */
+#error h1 {
+    font-size: 24px; /* Taille de la police */
+    margin-bottom: 10px; /* Marge inférieure */
+}
+
+/* Style pour le texte d'erreur */
+#error p {
+    font-size: 16px; /* Taille de la police */
+    margin-bottom: 10px; /* Marge inférieure */
+}
