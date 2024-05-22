@@ -25,6 +25,10 @@ public class Autre {
 
     public Autre() {}
 
+    public Integer getId() {
+        return id;
+    }
+
     public String getTitre() {
         return titre;
     }

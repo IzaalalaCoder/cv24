@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Informations d'Aide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .help-page {
+            max-width: 800px;
+            margin: auto;
+        }
+        .operation {
+            margin-bottom: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        h2 {
+            color: #2E8B57;
+        }
+        h3 {
+            color: #4682B4;
+        }
+
+        h3 + p {
+            width: max-content;
+            padding: 6px;
+
+            border-radius: 5px;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .command {
+            background: #e8f4fc;
+            padding: 10px;
+            border: 1px solid #b3d7e8;
+            margin-top: 5px;
+        }
+        footer {
+            display: flex;
+            font-size: large;
+            justify-content: center;
+            padding-bottom: 15px;
+            cursor: pointer;
+            /* margin-bottom: 0px; */
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="help-page">
+    <h1>Informations d'Aide</h1>
+
+    <div class="operation">
+        <h2>I - Description du service REST</h2>
+        <p>Remarque : Le format de retour de chaque requête doit être respecté et homogène sur l'ensemble de l'application. Lorsque plusieurs formats sont proposés, un seul doit être implémenté pour la page concernée.</p>
+    </div>
+    <hr>
+    <div class="operation">
+        <h3>URL : /</h3>
+        <p style="background-color: #61affe;"><strong>GET</strong></p>
+        <p><strong>Opération :</strong> Affiche la page d’accueil</p>
+        <p><strong>Retour :</strong> Format HTML ou XHTML valide</p>
+        <p><strong>Description :</strong> Affiche la page d’accueil du projet avec les informations suivantes :</p>
+        <ul>
+            <li>Nom de votre projet</li>
+            <li>Numéro de version</li>
+            <li>Nom & Prénom de chaque membre de l'équipe</li>
+            <li>Logo de l’Université de Rouen</li>
+        </ul>
+        <p><strong>Exemple de commande :</strong></p>
+        <div class="command">
+            <code>GET http://votre-domaine.com/</code>
+        </div>
+        <p><strong>Exemple de retour :</strong></p>
+        <pre>&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Accueil&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Nom du Projet&lt;/h1&gt;
+    &lt;p&gt;Version: 1.0&lt;/p&gt;
+    &lt;h2&gt;Équipe&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Nom Prénom 1&lt;/li&gt;
+        &lt;li&gt;Nom Prénom 2&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;img src="logo_rouen.png" alt="Logo Université de Rouen"&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+    </div>
+<hr>
+    <hr>
+    <div class="operation">
+        <h3>URL : /cv24/resume/xml</h3>
+        <p style="background-color: #61affe;"><strong>GET</strong></p>
+        <p><strong>Opération :</strong> Affiche la liste des CV stockés</p>
+        <p><strong>Retour :</strong> Flux XML</p>
+        <p><strong>Description :</strong> Liste contenant la synthèse des informations présentes dans la base. Pour chaque CV, ne seront affichés que les informations suivantes :</p>
+        <ul>
+            <li>Id : Valeur numérique auto-incrémentée lors de l'enregistrement d'un nouveau CV valide</li>
+            <li>Identité : Genre, Prénom, Nom</li>
+            <li>Objectif avec le statut spécifié en début de ligne</li>
+            <li>Diplôme le plus élevé</li>
+        </ul>
+        <p><strong>Exemple de commande :</strong></p>
+        <div class="command">
+            <code>GET http://votre-domaine.com/cv24/resume/xml</code>
+        </div>
+        <p><strong>Exemple de retour :</strong></p>
+        <pre>&lt;cvList&gt;
+    &lt;cv&gt;
+        &lt;id&gt;1&lt;/id&gt;
+        &lt;identite&gt;
+            &lt;genre&gt;M&lt;/genre&gt;
+            &lt;prenom&gt;Jean&lt;/prenom&gt;
+            &lt;nom&gt;Dupont&lt;/nom&gt;
+        &lt;/identite&gt;
+        &lt;objectif&gt;Embauché&lt;/objectif&gt;
+        &lt;diplome&gt;Master Informatique&lt;/diplome&gt;
+    &lt;/cv&gt;
+    ...
+&lt;/cvList&gt;</pre>
+    </div>
+    <hr>
+    <div class="operation">
+        <h3>URL : /cv24/resume</h3>
+        <p style="background-color: #61affe;"><strong>GET</strong></p>
+        <p><strong>Opération :</strong> Affiche la liste des CV stockés</p>
+        <p><strong>Retour :</strong> Page HTML (ou XHTML)</p>
+        <p><strong>Description :</strong> Mêmes informations que précédemment mais présentées au format d'une page HTML. Une mise en page sera réalisée pour obtenir un affichage agréable.</p>
+        <p><strong>Exemple de commande :</strong></p>
+        <div class="command">
+            <code>GET http://votre-domaine.com/cv24/resume</code>
+        </div>
+        <p><strong>Exemple de retour :</strong></p>
+        <pre>&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Liste des CV&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Liste des CV&lt;/h1&gt;
+    &lt;div class="cv"&gt;
+        &lt;h2&gt;CV 1&lt;/h2&gt;
+        &lt;p&gt;&lt;strong&gt;Identité :&lt;/strong&gt; M Jean Dupont&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Objectif :&lt;/strong&gt; Embauché&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Diplôme :&lt;/strong&gt; Master Informatique&lt;/p&gt;
+    &lt;/div&gt;
+    ...
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+    </div>
+    <hr>
+    <div class="operation">
+        <h3>URL : /cv24/xml?id=&lt;id&gt;</h3>
+        <p style="background-color: #61affe;"><strong>GET</strong></p>
+        <p><strong>Opération :</strong> Affiche le contenu complet du CV dont l’identifiant est transmis en paramètre</p>
+        <p><strong>Retour :</strong> Flux XML conforme au schéma xsd cv24, comprenant un seul CV</p>
+        <p><strong>Description :</strong> Intégralité de la spécification dont l’identifiant est fourni. Si l’identifiant est incorrect, retour d’un message d’erreur au format XML contenant :</p>
+        <ul>
+            <li>id → numéro de l’identifiant demandé</li>
+            <li>status → ERROR</li>
+        </ul>
+        <p><strong>Exemple de commande :</strong></p>
+        <div class="command">
+            <code>GET http://votre-domaine.com/cv24/xml?id=1</code>
+        </div>
+        <p><strong>Exemple de retour :</strong></p>
+        <pre>&lt;cv&gt;
+    &lt;id&gt;1&lt;/id&gt;
+    &lt;identite&gt;
+        &lt;genre&gt;M&lt;/genre&gt;
+        &lt;prenom&gt;Jean&lt;/prenom&gt;
+        &lt;nom&gt;Dupont&lt;/nom&gt;
+    &lt;/identite&gt;
+    &lt;objectif&gt;Embauché&lt;/objectif&gt;
+    &lt;diplome&gt;Master Informatique&lt;/diplome&gt;
+    ...
+&lt;/cv&gt;
+
+&lt;!-- En cas d'erreur --&gt;
+&lt;error&gt;
+    &lt;id&gt;999&lt;/id&gt;
+    &lt;status&gt;ERROR&lt;/status&gt;
+&lt;/error&gt;</pre>
+    </div>
+    <hr>
+    <div class="operation">
+        <h3>URL : /cv24/html?id=&lt;id&gt;</h3>
+        <p style="background-color: #61affe;"><strong>GET</strong></p>
+        <p><strong>Opération :</strong> Affiche le contenu complet du CV dont l’identifiant est &lt;id&gt;</p>
+        <p><strong>Retour :</strong> Page HTML (ou XHTML)</p>
+        <p><strong>Description :</strong> Intégralité du CV dont l’identifiant est fourni par &lt;id&gt;. Si l’identifiant est incorrect, retour d’un message d’erreur au format HTML contenant :</p>
+        <ul>
+            <li>id → numéro de l’identifiant demandé</li>
+            <li>status → ERROR</li>
+        </ul>
+        <p><strong>Exemple de commande :</strong></p>
+        <div class="command">
+            <code>GET http://votre-domaine.com/cv24/html?id=1</code>
+        </div>
+        <p><strong>Exemple de retour :</strong></p>
+        <pre>&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Détail du CV&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Détail du CV&lt;/h1&gt;
+    &lt;div class="cv"&gt;
+        &lt;p&gt;&lt;strong&gt;Identité :&lt;/strong&gt; M Jean Dupont&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Objectif :&lt;/strong&gt; Embauché&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Diplôme :&lt;/strong&gt; Master Informatique&lt;/p&gt;
+        ...
+    &lt;/div&gt;
+
+    &lt;!-- En cas d'erreur --&gt;
+    &lt;div id="error"&gt;
+        &lt;p&gt;999 | ERROR&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+    </div>
+    <hr>
+    <div class="operation">
+        <h3>URL : /cv24/insert</h3>
+        <p style="background-color: #49cc90"><strong>POST</strong></p>
+        <p><strong>Opération :</strong> Ajout d’un CV dans la base</p>
+        <p><strong>Transmis :</strong> Flux XML respectant la spécification cv24 à ajouter, conforme au schéma xsd.</p>
+        <p><strong>Description :</strong> Le flux reçu est validé par le schéma XSD de définition cv24. Si le flux est déjà présent, c'est-à-dire si les informations genre, nom, prénom et tel sont identiques, alors une indication d’erreur est retournée. Si l’opération est réussie, alors le CV est ajouté à la base et sa persistance est assurée. La valeur de &lt;id&gt; est générée automatiquement, par incrémentation de la dernière valeur enregistrée. Cette valeur doit obligatoirement être unique.</p>
+        <p><strong>Retour :</strong> Le flux XML retourné contient les informations suivantes :</p>
+        <ul>
+            <li>id → numéro d’identifiant attribué à la spécification soumise</li>
+            <li>status → INSERTED</li>
+        </ul>
+        <p>En cas d’échec de l’opération, les informations de statut seront retournées :</p>
+        <ul>
+            <li>status → ERROR</li>
+            <li>detail → INVALID | DUPLICATED ⇒ Selon l'origine de l'erreur</li>
+        </ul>
+        <p><strong>Exemple de commande :</strong></p>
+        <div class="command">
+            <code>POST http://votre-domaine.com/cv24/insert</code>
+        </div>
+        <p><strong>Exemple de retour :</strong></p>
+        <pre>&lt;response&gt;
+    &lt;id&gt;2&lt;/id&gt;
+    &lt;status&gt;INSERTED&lt;/status&gt;
+&lt;/response&gt;
+
+&lt;!-- En cas d'erreur --&gt;
+&lt;response&gt;
+    &lt;status&gt;ERROR&lt;/status&gt;
+    &lt;detail&gt;DUPLICATED&lt;/detail&gt;
+&lt;/response&gt;
+
+&lt;!-- En cas d'erreur de syntaxe --&gt;
+&lt;response&gt;
+    &lt;status&gt;ERROR&lt;/status&gt;
+    &lt;detail&gt;INVALID&lt;/detail&gt;
+&lt;/response&gt;
+        </pre>
+    </div>
+    <hr>
+    <div class="operation">
+        <h3>URL : /cv24/delete</h3>
+        <p style="background-color: #f93e3e"><strong>DELETE</strong></p>
+        <p><strong>Opération :</strong> Suppression d’un CV</p>
+        <p><strong>Transmis :</strong> Valeur de l'identifiant &lt;id&gt;</p>
+        <p><strong>Retour :</strong> Flux XML</p>
+        <p><strong>Description :</strong> Suppression du CV dont l’identifiant est &lt;id&gt;. Si l’opération a réussi, retour des informations suivantes :</p>
+        <ul>
+            <li>id → Numéro d’identifiant du CV qui a été supprimé</li>
+            <li>status → DELETED</li>
+        </ul>
+        <p>Si l’opération a échoué :</p>
+        <ul>
+            <li>status → ERROR</li>
+        </ul>
+        <p><strong>Exemple de commande :</strong></p>
+        <div class="command">
+            <code>DELETE http://votre-domaine.com/cv24/delete?id=1 </code>
+        </div>
+        <p><strong>Exemple de retour :</strong></p>
+        <pre>&lt;response&gt;
+    &lt;id&gt;2&lt;/id&gt;
+    &lt;status&gt;DELETED&lt;/status&gt;
+&lt;/response&gt;
+
+&lt;!-- En cas d'erreur --&gt;
+&lt;response&gt;
+    &lt;status&gt;ERROR&lt;/status&gt;
+&lt;/response&gt;</pre>
+    </div>
+    <hr>
+    <div class="operation">
+        <h3>URL : /cv24/search?...</h3>
+        <p style="background-color: #61affe;"><strong>GET</strong></p>
+        <p><strong>Opération :</strong> Recherche la liste des spécifications répondant aux contraintes exprimées dans la requête</p>
+        <p><strong>Description :</strong> Recherche par date ou par objectif. Les critères de recherche incluent :</p>
+        <ul>
+            <li>date : Liste des spécifications dont la date est identique, ou postérieure à celle indiquée dans la requête</li>
+            <li>objectif : Liste des CV dont l'objectif spécifié comprend au moins l'un des mots de la requête</li>
+        </ul>
+        <p><strong>Retour :</strong> Flux XML comprenant la liste des articles répondant aux critères de recherche exprimés. Le format sera semblable à celui utilisé pour présenter la liste des articles. Si l’opération a réussi, mais que la liste est vide, alors seul le statut sera retourné :</p>
+        <ul>
+            <li>status = NONE</li>
+        </ul>
+        <p>Si l’opération a échoué (format de contrainte incorrect, ...), retourner le statut :</p>
+        <ul>
+            <li>status = ERROR</li>
+        </ul>
+        <p>Recherche des CV en fonction de la date</p>
+        <p><strong>Exemple de commande :</strong></p>
+        <div class="command">
+            <code>GET http://votre-domaine.com/cv24/search?date=2024-01-01 </code>
+        </div>
+        <p><strong>Exemple de retour :</strong></p>
+        <pre>&lt;searchResults&gt;
+    &lt;cv&gt;
+        &lt;id&gt;1&lt;/id&gt;
+        &lt;identite&gt;
+            &lt;genre&gt;M&lt;/genre&gt;
+            &lt;prenom&gt;Jean&lt;/prenom&gt;
+            &lt;nom&gt;Dupont&lt;/nom&gt;
+        &lt;/identite&gt;
+        &lt;objectif&gt;Embauché&lt;/objectif&gt;
+        &lt;diplome&gt;Master Informatique&lt;/diplome&gt;
+    &lt;/cv&gt;
+    ...
+&lt;/searchResults&gt;
+
+&lt;!-- En cas de résultat vide --&gt;
+&lt;response&gt;
+    &lt;status&gt;NONE&lt;/status&gt;
+&lt;/response&gt;
+
+&lt;!-- En cas d'erreur --&gt;
+&lt;response&gt;
+    &lt;status&gt;ERROR&lt;/status&gt;
+&lt;/response&gt;</pre>
+
+
+        <p>Recherche des CV en fonction des objectifs</p>
+        <div class="command">
+            <code>GET http://votre-domaine.com/cv24/search?obj=developpeur </code>
+        </div>
+        <p><strong>Exemple de retour :</strong></p>
+        <pre>&lt;searchResults&gt;
+    &lt;cv&gt;
+        &lt;id&gt;1&lt;/id&gt;
+        &lt;identite&gt;
+            &lt;genre&gt;M&lt;/genre&gt;
+            &lt;prenom&gt;Jean&lt;/prenom&gt;
+            &lt;nom&gt;Dupont&lt;/nom&gt;
+        &lt;/identite&gt;
+        &lt;objectif&gt;Developpeur Java&lt;/objectif&gt;
+        &lt;diplome&gt;Master Informatique&lt;/diplome&gt;
+    &lt;/cv&gt;
+    ...
+&lt;/searchResults&gt;
+
+&lt;!-- En cas de résultat vide --&gt;
+&lt;response&gt;
+    &lt;status&gt;NONE&lt;/status&gt;
+&lt;/response&gt;
+
+&lt;!-- En cas d'erreur --&gt;
+&lt;response&gt;
+    &lt;status&gt;ERROR&lt;/status&gt;
+&lt;/response&gt;</pre>
+    </div>
+
+    <footer>
+        <a href="http://localhost:8080/">Retour sur la page d'accueil</a>
+    </footer>
+
+</div>
+</body>
+</html>

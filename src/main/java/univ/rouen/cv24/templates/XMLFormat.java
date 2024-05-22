@@ -2,6 +2,8 @@ package univ.rouen.cv24.templates;
 
 import univ.rouen.cv24.entity.*;
 
+import java.util.List;
+
 public class XMLFormat implements Page {
 
     @Override
@@ -146,5 +148,21 @@ public class XMLFormat implements Page {
         }
         informationsComments.append("</comments>");
         return informationsComments.toString();
+    }
+
+    public String getAllCv(List<Cv> cvs) {
+        StringBuilder result = new StringBuilder("<response>");
+        for (Cv cv : cvs) {
+            String idResult = "<id>" + cv.getId() + "</id>";
+
+            String identityResult = this.getInformationOnIdentity(cv.getIdentite(), false);
+            String objectiveResult = this.getInformationOnObjective(cv.getObjectif());
+            String diplomaResult = this.getInformationOnMaxDiploma(cv.getCompetences());
+
+            result.append("<cv>").append(idResult).append(identityResult).append(objectiveResult)
+                    .append(diplomaResult).append("</cv>");
+        }
+        result.append("</response>");
+        return result.toString();
     }
 }

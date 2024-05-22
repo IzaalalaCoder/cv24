@@ -10,6 +10,15 @@ import univ.rouen.cv24.templates.HTMLFormat;
 import univ.rouen.cv24.templates.Page;
 import univ.rouen.cv24.templates.XMLFormat;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -31,44 +40,15 @@ public class CvController {
     @GetMapping(value = "resume", produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<String> getAllCVInHTMLFormat() {
         Page p = new HTMLFormat();
-        String head = "<head> <meta charset=\"UTF-8\">" +
-                " <title> Liste de CV </title> " +
-                " <link rel=\"stylesheet\" href=\"/web/styles/detail_cv.css\"> " +
-                "</head>";
-
-        StringBuilder body = new StringBuilder("<body>");
-        for (Cv cv : this.cvService.getAllCvs()) {
-            body.append("<div class=\"info\"><a href=\"http://localhost:8080/cv24/html?id=")
-                .append(cv.getId()).append("\" id=\"cv_id\">").append(cv.getId()).append("</a>");
-            body.append("<div>");
-            body.append(p.getInformationOnIdentity(cv.getIdentite(), false));
-            body.append(p.getInformationOnObjective(cv.getObjectif()));
-            body.append(p.getInformationOnMaxDiploma(cv.getCompetences()));
-            body.append("</div></div>");
-        }
-
-        String returnHome ="<footer><a href=\"http://localhost:8080/\">Retour sur la page d'accueil</a></footer>";
-        String result = "<html>" + head + body + returnHome + "</body>";
-        return ResponseEntity.status(HttpStatus.OK.value()).body(result);
+        return ResponseEntity.status(HttpStatus.OK.value()).body(p.getAllCv(cvService.getAllCvs()));
     }
 
     @GetMapping(value = "resume/xml", produces = "application/xml")
     public ResponseEntity<String> getAllCVInXMLFormat() {
         Page p = new XMLFormat();
         List<Cv> cvs = this.cvService.getAllCvs();
-        StringBuilder result = new StringBuilder("<response>");
-        for (Cv cv : cvs) {
-            String idResult = "<id>" + cv.getId() + "</id>";
 
-            String identityResult = p.getInformationOnIdentity(cv.getIdentite(), false);
-            String objectiveResult = p.getInformationOnObjective(cv.getObjectif());
-            String diplomaResult = p.getInformationOnMaxDiploma(cv.getCompetences());
-
-            result.append("<cv>").append(idResult).append(identityResult).append(objectiveResult)
-                .append(diplomaResult).append("</cv>");
-        }
-        result.append("</response>");
-        return ResponseEntity.status(HttpStatus.OK.value()).body(result.toString());
+        return ResponseEntity.status(HttpStatus.OK.value()).body(p.getAllCv(cvs));
     }
 
     @GetMapping(value = "html", produces = MediaType.TEXT_HTML_VALUE)
@@ -91,7 +71,6 @@ public class CvController {
                 body.append("<h2>Les professions</h2>");
                 body.append(p.getInformationOnProfession(cv.getProf()));
             }
-
             body.append("<h2>Les diplomes</h2>");
             body.append(p.getAllInformationOnDiplomas(cv.getCompetences()));
             if (cv.getCompetences().getCertif() != null && !cv.getCompetences().getCertif().isEmpty()) {
@@ -102,18 +81,15 @@ public class CvController {
             if (cv.getDivers() != null) {
                 body.append("<h2>Les langues</h2>");
                 body.append(p.getAllInformationOnLanguages(cv.getDivers()));
-
                 if (cv.getDivers().getAutre() != null && !cv.getDivers().getAutre().isEmpty()) {
                     body.append("<h2>Les informations complémentaires</h2>");
                     body.append(p.getAllComplementaryInformation(cv.getDivers()));
                 }
             }
             body.append("</div>");
-
         } else {
             body.append("<div id=\"error\"> ").append(id).append(" | ERROR </div>");
         }
-
         String returnHome = "<footer><a href=\"http://localhost:8080/\">Retour sur la page d'accueil</a></footer>";
         String result = "<html>" + head + body + returnHome + "</body>";
 
@@ -187,5 +163,65 @@ public class CvController {
 
         int valueStatus = deletedCv == null ? HttpStatus.NOT_FOUND.value() : HttpStatus.OK.value();
         return ResponseEntity.status(valueStatus).body(response);
+    }
+
+    @GetMapping(value = "search", produces = "application/xml")
+    public String search(@RequestParam(value = "obj") String obj, @RequestParam(value = "date") String date) {
+        if (obj.isEmpty() || date.isEmpty() ||
+                (!(date.length() == "yyyy-MM-dd'T'HH:mm:ss".length()
+                || date.length() == "yyyy-MM-dd".length()))
+            ) {
+            return "<response><status>ERROR</status></response>";
+        }
+
+        if (date.length() == "yyyy-MM-dd".length()) {
+            date += "T00:00:00";
+        }
+        final LocalDateTime dateTime;
+        try {
+            dateTime = LocalDateTime.parse(date);
+        } catch (Exception e) {
+            return "<response><status>ERROR</status></response>";
+        }
+
+        List<Cv> cvSearch = new ArrayList<>();
+        for (Cv cv : this.cvService.getAllCvs()) {
+            if (cv.getObjectif().getDescription().contains(obj)) {
+                cvSearch.add(cv);
+            } else if (!cvSearch.contains(cv) && cv.getProf() != null) {
+                for (Detail d : cv.getProf().getDetail()) {
+                    if (d.getDatedeb().isAfter(dateTime) || d.getDatedeb().equals(dateTime)) {
+                        cvSearch.add(cv);
+                    }
+                }
+            } else if (!cvSearch.contains(cv)) {
+                for (Certif certif : cv.getCompetences().getCertif()) {
+                    if (certif.getDatedeb().isAfter(dateTime) || certif.getDatedeb().equals(dateTime)) {
+                        cvSearch.add(cv);
+                    }
+                }
+            }
+            if (!cvSearch.contains(cv)) {
+                List<Diplome> diplomas = cv.getCompetences().getDiplome();
+                for (Diplome diplome : diplomas) {
+                    Date dateOfObtention = diplome.getDate();
+                    LocalDateTime localDateDiplome = dateOfObtention.toInstant()
+                        .atZone(ZoneId.systemDefault()).toLocalDateTime();
+                    if (localDateDiplome.isAfter(dateTime) || localDateDiplome.equals(dateTime)) {
+                        cvSearch.add(cv);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Return appropriate response if no CVs are found
+        if (cvSearch.isEmpty()) {
+            return "<response><status>NONE</status></response>";
+        }
+
+        // Format and return the results in XML
+        Page p = new XMLFormat();
+        return p.getAllCv(cvSearch);
     }
 }

@@ -2,6 +2,8 @@ package univ.rouen.cv24.templates;
 
 import univ.rouen.cv24.entity.*;
 
+import java.util.List;
+
 public class HTMLFormat implements Page {
     @Override
     public String getInformationOnIdentity(Identite id, boolean displayAllInformation) {
@@ -148,5 +150,26 @@ public class HTMLFormat implements Page {
         }
         informationsComments.append("</div>");
         return informationsComments.toString();
+    }
+
+    public String getAllCv(List<Cv> cvs) {
+        String head = "<head> <meta charset=\"UTF-8\">" +
+                " <title> Liste de CV </title> " +
+                " <link rel=\"stylesheet\" href=\"/web/styles/detail_cv.css\"> " +
+                "</head>";
+
+        StringBuilder body = new StringBuilder("<body>");
+        for (Cv cv : cvs) {
+            body.append("<div class=\"info\"><a href=\"http://localhost:8080/cv24/html?id=")
+                    .append(cv.getId()).append("\" id=\"cv_id\">").append(cv.getId()).append("</a>");
+            body.append("<div>");
+            body.append(this.getInformationOnIdentity(cv.getIdentite(), false));
+            body.append(this.getInformationOnObjective(cv.getObjectif()));
+            body.append(this.getInformationOnMaxDiploma(cv.getCompetences()));
+            body.append("</div></div>");
+        }
+
+        String returnHome ="<footer><a href=\"http://localhost:8080/\">Retour sur la page d'accueil</a></footer>";
+        return "<html>" + head + body + returnHome + "</body>";
     }
 }

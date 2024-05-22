@@ -1,10 +1,8 @@
 package univ.rouen.cv24.templates;
 
-import univ.rouen.cv24.entity.Competences;
-import univ.rouen.cv24.entity.Divers;
-import univ.rouen.cv24.entity.Identite;
-import univ.rouen.cv24.entity.Prof;
-import univ.rouen.cv24.entity.Objectif;
+import univ.rouen.cv24.entity.*;
+
+import java.util.List;
 
 public interface Page {
 
@@ -23,4 +21,6 @@ public interface Page {
     String getAllInformationOnLanguages(Divers divers);
 
     String getAllComplementaryInformation(Divers divers);
+
+    String getAllCv(List<Cv> cvs);
 }
