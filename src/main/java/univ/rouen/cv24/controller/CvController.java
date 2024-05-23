@@ -147,9 +147,9 @@ public class CvController {
     public ResponseEntity<String> deleteCv(@RequestParam(value = "id") Integer id) {
         Cv deletedCv = this.cvService.getCv(id);
         String response = "<response>";
+        response += "<id>" + id + "</id>";
         if (deletedCv != null) {
             this.cvService.deleteCv(deletedCv);
-             response += "<id>" + deletedCv.getId() + "</id>";
         }
 
         response += "<status>" + (deletedCv == null ? "ERROR" : "DELETED")  + "</status>";

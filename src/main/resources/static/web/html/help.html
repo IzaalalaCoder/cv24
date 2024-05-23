@@ -80,22 +80,27 @@
             <code>GET http://votre-domaine.com/</code>
         </div>
         <p><strong>Exemple de retour :</strong></p>
-        <pre>&lt;html&gt;
-&lt;head&gt;&lt;title&gt;Accueil&lt;/title&gt;&lt;/head&gt;
+        <pre>&lt;html lang="en"&gt;
+&lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;title&gt;Page d'accueil&lt;/title&gt;
+        &lt;link rel="stylesheet" href="web/styles/style.css"&gt;
+&lt;/head&gt;
 &lt;body&gt;
-    &lt;h1&gt;Nom du Projet&lt;/h1&gt;
-    &lt;p&gt;Version: 1.0&lt;/p&gt;
-    &lt;h2&gt;Équipe&lt;/h2&gt;
-    &lt;ul&gt;
-        &lt;li&gt;Nom Prénom 1&lt;/li&gt;
-        &lt;li&gt;Nom Prénom 2&lt;/li&gt;
-    &lt;/ul&gt;
-    &lt;img src="logo_rouen.png" alt="Logo Université de Rouen"&gt;
+    &lt;div class="container"&gt;
+        &lt;div id="information"&gt;
+            &lt;h2>Projet : Service Rest | Version 2&lt;/h2&gt;
+            &lt;p&gt;Izana Khabouri&lt;/p&gt;
+            &lt;a href="/cv24/resume">Voir les CV&lt;/a&gt; | &lt;a href="/help">Voir l'aide&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div id="logo"&gt;
+            &lt;img alt="Logo de l'université" src="web/asset/LOGO.jpg"&gt;
+        &lt;/div>
+    &lt;/div>
 &lt;/body&gt;
 &lt;/html&gt;</pre>
     </div>
 <hr>
-    <hr>
     <div class="operation">
         <h3>URL : /cv24/resume/xml</h3>
         <p style="background-color: #61affe;"><strong>GET</strong></p>
@@ -113,19 +118,18 @@
             <code>GET http://votre-domaine.com/cv24/resume/xml</code>
         </div>
         <p><strong>Exemple de retour :</strong></p>
-        <pre>&lt;cvList&gt;
+        <pre>&lt;response&gt;
     &lt;cv&gt;
         &lt;id&gt;1&lt;/id&gt;
         &lt;identite&gt;
-            &lt;genre&gt;M&lt;/genre&gt;
-            &lt;prenom&gt;Jean&lt;/prenom&gt;
-            &lt;nom&gt;Dupont&lt;/nom&gt;
+            &lt;genre&gt;Mme&lt;/genre&gt;
+            &lt;prenom&gt;Martin&lt;/prenom&gt;
+            &lt;nom&gt;MOUHNO&lt;/nom&gt;
         &lt;/identite&gt;
-        &lt;objectif&gt;Embauché&lt;/objectif&gt;
-        &lt;diplome&gt;Master Informatique&lt;/diplome&gt;
+        &lt;objectif statut="stage"&gt;Developpeur&lt;/objectif&gt;
+        &lt;diplome&gt;PREPA PTSI&lt;/diplome&gt;
     &lt;/cv&gt;
-    ...
-&lt;/cvList&gt;</pre>
+&lt;/response&gt;</pre>
     </div>
     <hr>
     <div class="operation">
@@ -140,18 +144,34 @@
         </div>
         <p><strong>Exemple de retour :</strong></p>
         <pre>&lt;html&gt;
-&lt;head&gt;&lt;title&gt;Liste des CV&lt;/title&gt;&lt;/head&gt;
+
+&lt;head&gt;
+	&lt;meta charset="UTF-8"&gt;
+	&lt;title&gt; Liste de CV &lt;/title&gt;
+	&lt;link rel="stylesheet" href="/web/styles/detail_cv.css"&gt;
+&lt;/head&gt;
+
 &lt;body&gt;
-    &lt;h1&gt;Liste des CV&lt;/h1&gt;
-    &lt;div class="cv"&gt;
-        &lt;h2&gt;CV 1&lt;/h2&gt;
-        &lt;p&gt;&lt;strong&gt;Identité :&lt;/strong&gt; M Jean Dupont&lt;/p&gt;
-        &lt;p&gt;&lt;strong&gt;Objectif :&lt;/strong&gt; Embauché&lt;/p&gt;
-        &lt;p&gt;&lt;strong&gt;Diplôme :&lt;/strong&gt; Master Informatique&lt;/p&gt;
-    &lt;/div&gt;
-    ...
-&lt;/body&gt;
-&lt;/html&gt;</pre>
+	&lt;div class="info"&gt;&lt;a href="/cv24/html?id=1" id="cv_id"&gt;1&lt;/a&gt;
+		&lt;div&gt;
+			&lt;div class="identity"&gt;
+				&lt;h2&gt;Identité&lt;/h2&gt;
+				&lt;p&gt;Mme&lt;/p&gt;
+				&lt;p&gt;MOUHNO&lt;/p&gt;
+				&lt;p&gt;Martin&lt;/p&gt;
+			&lt;/div&gt;
+			&lt;div class="objectif"&gt;
+				&lt;h2&gt;Poste recherché&lt;/h2&gt;
+				&lt;p&gt; Un stage en tant que Developpeur&lt;/p&gt;
+			&lt;/div&gt;
+			&lt;div class="diplomes"&gt;
+				&lt;h2&gt;Diplome&lt;/h2&gt;
+				&lt;p&gt;Diplome le plus haut : PREPA PTSI&lt;/p&gt;
+			&lt;/div&gt;
+            &lt;/div&gt;
+	&lt;/div&gt;
+	&lt;footer&gt;&lt;a href="/"&gt;Retour sur la page d'accueil&lt;/a&gt;&lt;/footer&gt;
+&lt;/body&gt;</pre>
     </div>
     <hr>
     <div class="operation">
@@ -169,23 +189,64 @@
             <code>GET http://votre-domaine.com/cv24/xml?id=1</code>
         </div>
         <p><strong>Exemple de retour :</strong></p>
-        <pre>&lt;cv&gt;
-    &lt;id&gt;1&lt;/id&gt;
-    &lt;identite&gt;
-        &lt;genre&gt;M&lt;/genre&gt;
-        &lt;prenom&gt;Jean&lt;/prenom&gt;
-        &lt;nom&gt;Dupont&lt;/nom&gt;
+        <pre>&lt;response&gt;
+        &lt;id>1&lt;/id&gt;
+        &lt;identite&gt;
+        &lt;genre&gt;Mme&lt;/genre&gt;
+        &lt;prenom&gt;Martin&lt;/prenom&gt;
+        &lt;nom&gt;MOUHNO&lt;/nom&gt;
+        &lt;mail&gt;mail@default.com&lt;/mail&gt;
+        &lt;tel&gt;0512356948&lt;/tel&gt;
     &lt;/identite&gt;
-    &lt;objectif&gt;Embauché&lt;/objectif&gt;
-    &lt;diplome&gt;Master Informatique&lt;/diplome&gt;
-    ...
-&lt;/cv&gt;
+    &lt;objectif statut="stage">Developpeur&lt;/objectif&gt;
+    &lt;details&gt;
+        &lt;detail&gt;
+            &lt;titre&gt;Stage developpeur&lt;/titre&gt;
+            &lt;date&gt;2001-01-01T00:00|2001-01-01T00:00
+                &lt;/p&gt;
+        &lt;/detail&gt;
+    &lt;/details&gt;
+    &lt;diplomes&gt;
+        &lt;diplome&gt;
+            &lt;titre&gt;Bac L&lt;/titre&gt;
+            &lt;niveau&gt;5&lt;/niveau&gt;
+            &lt;date&gt;2001-01-01 00:00:00.0&lt;/date&gt;
+            &lt;institut&gt;Lycee Blaise&lt;/institut&gt;
+        &lt;/diplome&gt;
+        &lt;diplome&gt;
+            &lt;titre&gt;PREPA PTSI&lt;/titre&gt;
+            &lt;niveau&gt;8&lt;/niveau&gt;
+            &lt;date&gt;2001-01-01 00:00:00.0&lt;/date&gt;
+            &lt;institut&gt;Lycee Blaise&lt;/institut&gt;
+        &lt;/diplome&gt;
+    &lt;/diplomes&gt;
+    &lt;certifs&gt;
+        &lt;certif&gt;
+            &lt;titre&gt;Bac S&lt;/titre&gt;
+            &lt;date&gt;2001-01-01T00:00|2001-01-01T00:00&lt;/date&gt;
+        &lt;/certif&gt;
+    &lt;/certifs&gt;
+    &lt;langs&gt;
+        &lt;lang&gt;
+            &lt;nom&gt;Francais&lt;/nom&gt;
+            &lt;cert&gt;MAT&lt;/cert&gt;
+            &lt;nivi&gt;80&lt;/nivi&gt;
+            &lt;nivs&gt;C1&lt;/nivs&gt;
+        &lt;/lang&gt;
+    &lt;/langs&gt;
+    &lt;comments&gt;
+        &lt;comment&gt;
+            &lt;titre&gt;Titre&lt;/titre&gt;
+            &lt;c&gt;Commentaire&lt;/c&gt;
+        &lt;/comment&gt;
+    &lt;/comments&gt;
+&lt;/response&gt;
 
 &lt;!-- En cas d'erreur --&gt;
-&lt;error&gt;
+&lt;response&gt;
     &lt;id&gt;999&lt;/id&gt;
     &lt;status&gt;ERROR&lt;/status&gt;
-&lt;/error&gt;</pre>
+&lt;/response&gt;</pre>
     </div>
     <hr>
     <div class="operation">
@@ -204,22 +265,86 @@
         </div>
         <p><strong>Exemple de retour :</strong></p>
         <pre>&lt;html&gt;
-&lt;head&gt;&lt;title&gt;Détail du CV&lt;/title&gt;&lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;Détail du CV&lt;/h1&gt;
-    &lt;div class="cv"&gt;
-        &lt;p&gt;&lt;strong&gt;Identité :&lt;/strong&gt; M Jean Dupont&lt;/p&gt;
-        &lt;p&gt;&lt;strong&gt;Objectif :&lt;/strong&gt; Embauché&lt;/p&gt;
-        &lt;p&gt;&lt;strong&gt;Diplôme :&lt;/strong&gt; Master Informatique&lt;/p&gt;
-        ...
-    &lt;/div&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;title&gt; Détail d'un CV &lt;/title&gt;
+	    &lt;link rel="stylesheet" href="/web/styles/detail_cv.css"&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;div class="cv"&gt;
+            &lt;div class="identity"&gt;
+                &lt;h2&gt;Identité&lt;/h2&gt;
+			    &lt;p&gt;Mme &lt;/p&gt;
+			    &lt;p&gt;MOUHNO&lt;/p&gt;
+			    &lt;p&gt;Martin&lt;/p&gt;
+			    &lt;p&gt; Numéro de téléphone : 0512356948&lt;/p&gt;
+			    &lt;p&gt; Adresse mail : mail@default.com&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class="objectif"&gt;
+			    &lt;h2&gt;Poste recherché&lt;/h2&gt;
+			    &lt;p&gt; Un stage en tant que Developpeur&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;h2&gt;Les professions&lt;/h2&gt;
+            &lt;div class="details"&gt;
+                &lt;div&gt;
+                    &lt;h3&gt;Stage developpeur&lt;/h3&gt;
+                    &lt;p&gt;2001-01-01T00:00 | 2001-01-01T00:00&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;h2>Les diplomes&lt;/h2&gt;
+            &lt;div class="diplomes"&gt;
+                &lt;div&gt;
+                    &lt;h3&gt;Bac L&lt;/h3&gt;
+                    &lt;p&gt;5 | 2001-01-01 00:00:00.0&lt;/p&gt;
+                    &lt;p&gt;Lycee Blaise&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                    &lt;h3&gt;PREPA PTSI&lt;/h3&gt;
+                    &lt;p&gt;8 | 2001-01-01 00:00:00.0&lt;/p&gt;
+                    &lt;p&gt;Lycee Blaise&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;h2&gt;Les certificats&lt;/h2&gt;
+            &lt;div class="certifs"&gt;
+                &lt;div&gt;
+                    &lt;h3&gt;Bac S&lt;/h3&gt;
+                    &lt;p&gt;2001-01-01T00:00 | 2001-01-01T00:00&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+                &lt;h2&gt;Les langues&lt;/h2&gt;
+                &lt;div class="langs"&gt;
+                &lt;div&gt;
+                    &lt;h3&gt;Francais | MAT&lt;/h3&gt;
+                    &lt;p&gt; Niveau : 80&lt;/p&gt;
+                    &lt;p&gt; Niveau : C1&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;/div&gt;
+                    &lt;h2&gt;Les informations complémentaires&lt;/h2&gt;
+                    &lt;div class="comments"&gt;
+                        &lt;div&gt;
+                            &lt;h2&gt;Titre&lt;/p&gt;
+                        &lt;/div&gt;
+                        &lt;p&gt;Commentaire&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;footer&gt;&lt;a href="/"&gt;Retour sur la page d'accueil&lt;/a&gt;&lt;/footer&gt;
+&lt;/body&gt;
 
     &lt;!-- En cas d'erreur --&gt;
-    &lt;div id="error"&gt;
-        &lt;p&gt;999 | ERROR&lt;/p&gt;
-    &lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;</pre>
+&lt;html>
+
+&lt;head>
+	&lt;meta charset="UTF-8"&gt;
+	&lt;title&gt; Détail d'un CV&lt;/title&gt;
+    &lt;link rel="stylesheet" href="/web/styles/detail_cv.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+	&lt;div id="error"&gt; 2 | ERROR &lt;/div&gt;
+    &lt;footer&gt;&lt;a href="/"&gt;Retour sur la page d'accueil&lt;/a&gt;&lt;/footer&gt;
+&lt;/body&gt;</pre>
     </div>
     <hr>
     <div class="operation">
@@ -283,12 +408,13 @@
         </div>
         <p><strong>Exemple de retour :</strong></p>
         <pre>&lt;response&gt;
-    &lt;id&gt;2&lt;/id&gt;
+    &lt;id&gt;1&lt;/id&gt;
     &lt;status&gt;DELETED&lt;/status&gt;
 &lt;/response&gt;
 
 &lt;!-- En cas d'erreur --&gt;
 &lt;response&gt;
+    &lt;id&gt;1&lt;/id&gt;
     &lt;status&gt;ERROR&lt;/status&gt;
 &lt;/response&gt;</pre>
     </div>
@@ -313,59 +439,28 @@
         <p>Recherche des CV en fonction de la date</p>
         <p><strong>Exemple de commande :</strong></p>
         <div class="command">
-            <code>GET http://votre-domaine.com/cv24/search?date=2024-01-01 </code>
+            <code>GET http://votre-domaine.com/cv24/search?obj=Developpeur&date=2024-01-01 </code>
         </div>
         <p><strong>Exemple de retour :</strong></p>
-        <pre>&lt;searchResults&gt;
+        <pre>&lt;response&gt;
     &lt;cv&gt;
         &lt;id&gt;1&lt;/id&gt;
         &lt;identite&gt;
-            &lt;genre&gt;M&lt;/genre&gt;
-            &lt;prenom&gt;Jean&lt;/prenom&gt;
-            &lt;nom&gt;Dupont&lt;/nom&gt;
+            &lt;genre&gt;Mme&lt;/genre&gt;
+            &lt;prenom&gt;Martin&lt;/prenom&gt;
+            &lt;nom&gt;MOUHNO&lt;/nom&gt;
         &lt;/identite&gt;
-        &lt;objectif&gt;Embauché&lt;/objectif&gt;
-        &lt;diplome&gt;Master Informatique&lt;/diplome&gt;
+        &lt;objectif statut="stage"&gt;Developpeur&lt;/objectif&gt;
+        &lt;diplome&gt;PREPA PTSI&lt;/diplome&gt;
     &lt;/cv&gt;
-    ...
-&lt;/searchResults&gt;
+&lt;/response&gt;
 
 &lt;!-- En cas de résultat vide --&gt;
 &lt;response&gt;
     &lt;status&gt;NONE&lt;/status&gt;
 &lt;/response&gt;
 
-&lt;!-- En cas d'erreur --&gt;
-&lt;response&gt;
-    &lt;status&gt;ERROR&lt;/status&gt;
-&lt;/response&gt;</pre>
-
-
-        <p>Recherche des CV en fonction des objectifs</p>
-        <div class="command">
-            <code>GET http://votre-domaine.com/cv24/search?obj=developpeur </code>
-        </div>
-        <p><strong>Exemple de retour :</strong></p>
-        <pre>&lt;searchResults&gt;
-    &lt;cv&gt;
-        &lt;id&gt;1&lt;/id&gt;
-        &lt;identite&gt;
-            &lt;genre&gt;M&lt;/genre&gt;
-            &lt;prenom&gt;Jean&lt;/prenom&gt;
-            &lt;nom&gt;Dupont&lt;/nom&gt;
-        &lt;/identite&gt;
-        &lt;objectif&gt;Developpeur Java&lt;/objectif&gt;
-        &lt;diplome&gt;Master Informatique&lt;/diplome&gt;
-    &lt;/cv&gt;
-    ...
-&lt;/searchResults&gt;
-
-&lt;!-- En cas de résultat vide --&gt;
-&lt;response&gt;
-    &lt;status&gt;NONE&lt;/status&gt;
-&lt;/response&gt;
-
-&lt;!-- En cas d'erreur --&gt;
+&lt;!-- En cas d'erreur de syntaxe --&gt;
 &lt;response&gt;
     &lt;status&gt;ERROR&lt;/status&gt;
 &lt;/response&gt;</pre>
