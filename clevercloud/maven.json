@@ -5,8 +5,5 @@
   },
   "deploy": {
     "goal": "spring-boot:run"
-  },
-  "dependencies": {
-    "addon": "mariadb"
   }
 }
