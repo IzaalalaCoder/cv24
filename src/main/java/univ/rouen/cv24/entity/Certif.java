@@ -31,6 +31,10 @@ public class Certif {
 
     public Certif() {}
 
+    public Integer getId() {
+        return id;
+    }
+
     public LocalDateTime getDatedeb() {
         return datedeb;
     }

@@ -23,6 +23,10 @@ public class Divers {
 
     public Divers() {}
 
+    public Integer getId() {
+        return id;
+    }
+
     public List<Autre> getAutre() {
         return autre;
     }

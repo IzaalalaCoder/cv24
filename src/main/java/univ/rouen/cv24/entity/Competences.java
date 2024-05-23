@@ -23,6 +23,10 @@ public class Competences {
 
     public Competences() {}
 
+    public Integer getId() {
+        return id;
+    }
+
     public List<Diplome> getDiplome() {
         return diplome;
     }

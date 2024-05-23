@@ -31,6 +31,10 @@ public class Detail {
 
     public Detail() {}
 
+    public Integer getId() {
+        return id;
+    }
+
     public LocalDateTime getDatefin() {
         return datefin;
     }

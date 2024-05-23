@@ -31,6 +31,10 @@ public class Diplome {
 
     public Diplome() {}
 
+    public Integer getId() {
+        return id;
+    }
+
     public Integer getNiveau() {
         return niveau;
     }
