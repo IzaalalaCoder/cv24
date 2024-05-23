@@ -21,8 +21,6 @@ public class Autre {
     @XmlAttribute
     private String titre;
 
-    // Getters and Setters
-
     public Autre() {}
 
     public Integer getId() {

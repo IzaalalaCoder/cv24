@@ -3,9 +3,6 @@ package univ.rouen.cv24.entity;
 import jakarta.persistence.*;
 import jakarta.xml.bind.annotation.*;
 
-import java.util.List;
-
-
 @Entity
 @XmlRootElement(name = "cv24", namespace = "http://univ.fr/cv24")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -36,8 +33,7 @@ public class Cv {
     @XmlElement(namespace = "http://univ.fr/cv24")
     private Divers divers;
 
-    // Getters and Setters
-
+    public Cv() {}
 
     public Identite getIdentite() {
         return identite;

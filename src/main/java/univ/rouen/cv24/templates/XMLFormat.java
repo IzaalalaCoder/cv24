@@ -1,7 +1,6 @@
 package univ.rouen.cv24.templates;
 
 import univ.rouen.cv24.entity.*;
-
 import java.util.List;
 
 public class XMLFormat implements Page {

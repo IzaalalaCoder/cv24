@@ -7,7 +7,6 @@ import jakarta.persistence.Id;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import univ.rouen.cv24.util.LocalDateTimeAdapter;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -29,8 +28,6 @@ public class Certif {
 
     @XmlElement(namespace = "http://univ.fr/cv24")
     private String titreCert;
-
-    // Getters and Setters
 
     public Certif() {}
 

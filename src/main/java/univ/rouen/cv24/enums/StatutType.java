@@ -3,10 +3,14 @@ package univ.rouen.cv24.enums;
 import jakarta.xml.bind.annotation.XmlEnum;
 import jakarta.xml.bind.annotation.XmlEnumValue;
 
-@XmlEnum(String.class)
+@XmlEnum()
 public enum StatutType {
-    @XmlEnumValue("stage") STAGE("stage"),
-    @XmlEnumValue("emploi") EMPLOI("emploi");
+
+    @XmlEnumValue("stage")
+    STAGE("stage"),
+
+    @XmlEnumValue("emploi")
+    EMPLOI("emploi");
 
     private final String value;
 

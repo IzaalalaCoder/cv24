@@ -28,8 +28,11 @@ public class Identite {
     @XmlElement(namespace = "http://univ.fr/cv24")
     private String mel;
 
-    // Getters and Setters
+    public Identite() {}
 
+    public Integer getId() {
+        return id;
+    }
 
     public GenreType getGenre() {
         return genre;

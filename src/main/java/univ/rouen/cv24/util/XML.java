@@ -5,7 +5,6 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import org.xml.sax.SAXException;
 import univ.rouen.cv24.entity.Cv;
-
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.StringReader;
@@ -23,7 +22,7 @@ public class XML {
             unmarshaller.unmarshal(new StringReader(xmlContent));
             return true;
         } catch (SAXException | JAXBException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
     }

@@ -21,8 +21,7 @@ public class Competences {
     @XmlElement(namespace = "http://univ.fr/cv24")
     private List<Certif> certif;
 
-    // Getters and Setters
-
+    public Competences() {}
 
     public List<Diplome> getDiplome() {
         return diplome;

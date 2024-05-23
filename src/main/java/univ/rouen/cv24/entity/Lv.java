@@ -26,6 +26,8 @@ public class Lv {
     @XmlAttribute
     private NivsType nivs;
 
+    public Lv() {}
+
     public CertType getCert() {
         return cert;
     }
@@ -44,9 +46,5 @@ public class Lv {
 
     public String getLang() {
         return lang;
-    }
-
-    public Lv() {
-
     }
 }

@@ -1,7 +1,6 @@
 package univ.rouen.cv24.entity;
 
 import jakarta.persistence.*;
-
 import jakarta.xml.bind.annotation.*;
 import java.util.List;
 
@@ -21,8 +20,6 @@ public class Divers {
     @OneToMany(cascade = CascadeType.ALL)
     @XmlElement(namespace = "http://univ.fr/cv24")
     private List<Autre> autre;
-
-    // Getters and Setters
 
     public Divers() {}
 

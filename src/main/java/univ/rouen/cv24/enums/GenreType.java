@@ -1,11 +1,16 @@
 package univ.rouen.cv24.enums;
+
 import jakarta.xml.bind.annotation.XmlEnum;
 import jakarta.xml.bind.annotation.XmlEnumValue;
 
-@XmlEnum(String.class)
+@XmlEnum()
 public enum GenreType {
-    @XmlEnumValue("M.") M("M."),
-    @XmlEnumValue("Mme") MME("Mme");
+
+    @XmlEnumValue("M.")
+    M("M."),
+
+    @XmlEnumValue("Mme")
+    MME("Mme");
 
     private final String value;
 

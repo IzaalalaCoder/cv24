@@ -9,15 +9,9 @@ import univ.rouen.cv24.service.CvService;
 import univ.rouen.cv24.templates.HTMLFormat;
 import univ.rouen.cv24.templates.Page;
 import univ.rouen.cv24.templates.XMLFormat;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 

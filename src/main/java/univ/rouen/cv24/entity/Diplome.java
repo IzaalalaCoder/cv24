@@ -1,7 +1,6 @@
 package univ.rouen.cv24.entity;
 
 import jakarta.persistence.*;
-
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import univ.rouen.cv24.util.DateAdapter;
@@ -30,9 +29,7 @@ public class Diplome {
     @XmlAttribute
     private Integer niveau;
 
-    public Diplome() {
-
-    }
+    public Diplome() {}
 
     public Integer getNiveau() {
         return niveau;

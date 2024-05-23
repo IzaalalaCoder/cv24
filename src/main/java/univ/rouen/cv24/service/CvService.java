@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import univ.rouen.cv24.entity.Cv;
 import univ.rouen.cv24.repository.CvRepository;
 import univ.rouen.cv24.util.XML;
-
 import java.util.List;
 
 @Service
@@ -38,7 +37,6 @@ public class CvService {
                 cv.getIdentite().getTel())) {
             throw new IllegalArgumentException("DUPLICATED");
         }
-
         return cvRepository.save(cv);
     }
 

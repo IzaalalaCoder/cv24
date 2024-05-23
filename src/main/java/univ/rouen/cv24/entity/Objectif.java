@@ -2,7 +2,6 @@ package univ.rouen.cv24.entity;
 
 import jakarta.persistence.*;
 import univ.rouen.cv24.enums.StatutType;
-
 import jakarta.xml.bind.annotation.*;
 
 @Entity
@@ -20,12 +19,7 @@ public class Objectif {
     @XmlAttribute
     private StatutType statut;
 
-
-    // Getters and Setters
-
-    public Objectif() {
-
-    }
+    public Objectif() {}
 
     public String getDescription() {
         return description;
@@ -33,5 +27,9 @@ public class Objectif {
 
     public StatutType getStatut() {
         return statut;
+    }
+
+    public Integer getId() {
+        return id;
     }
 }

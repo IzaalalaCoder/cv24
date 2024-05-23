@@ -7,7 +7,6 @@ import jakarta.persistence.Id;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import univ.rouen.cv24.util.LocalDateTimeAdapter;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -30,9 +29,7 @@ public class Detail {
     @XmlElement(namespace = "http://univ.fr/cv24")
     private String titreDetail;
 
-    public Detail() {
-
-    }
+    public Detail() {}
 
     public LocalDateTime getDatefin() {
         return datefin;
@@ -45,6 +42,4 @@ public class Detail {
     public String getTitreDetail() {
         return titreDetail;
     }
-
-    // Getters and Setters
 }
