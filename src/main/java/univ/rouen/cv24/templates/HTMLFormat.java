@@ -160,7 +160,7 @@ public class HTMLFormat implements Page {
 
         StringBuilder body = new StringBuilder("<body>");
         for (Cv cv : cvs) {
-            body.append("<div class=\"info\"><a href=\"cv-khabouri.cleverapps.io/cv24/html?id=")
+            body.append("<div class=\"info\"><a href=\"/cv24/html?id=")
                     .append(cv.getId()).append("\" id=\"cv_id\">").append(cv.getId()).append("</a>");
             body.append("<div>");
             body.append(this.getInformationOnIdentity(cv.getIdentite(), false));
@@ -169,7 +169,7 @@ public class HTMLFormat implements Page {
             body.append("</div></div>");
         }
 
-        String returnHome ="<footer><a href=\"cv-khabouri.cleverapps.io/\">Retour sur la page d'accueil</a></footer>";
+        String returnHome ="<footer><a href=\"/\">Retour sur la page d'accueil</a></footer>";
         return "<html>" + head + body + returnHome + "</body>";
     }
 }
