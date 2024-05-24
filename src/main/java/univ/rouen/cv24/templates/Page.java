@@ -7,11 +7,11 @@ public interface Page {
 
     String getInformationOnIdentity(Identite id, boolean displayAllInformation);
 
-    String getInformationOnObjective(Objectif objectif);
+    String getAllInformationOnObjective(Objectif objectif);
 
-    String getInformationOnProfession(Prof prof);
+    String getAllInformationOnProfession(Prof prof);
 
-    String getInformationOnMaxDiploma(Competences competences);
+    String getAllInformationOnMaxDiploma(Competences competences);
 
     String getAllInformationOnDiplomas(Competences competences);
 
@@ -22,4 +22,6 @@ public interface Page {
     String getAllComplementaryInformation(Divers divers);
 
     String getAllCv(List<Cv> cvs);
+
+    String getAllInformationOnCv(Cv cv, int id);
 }

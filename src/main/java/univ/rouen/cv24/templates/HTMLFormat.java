@@ -26,7 +26,7 @@ public class HTMLFormat implements Page {
     }
 
     @Override
-    public String getInformationOnObjective(Objectif objectif) {
+    public String getAllInformationOnObjective(Objectif objectif) {
         String informationOnObjectif = "<div class=\"objectif\">" +
                 "<h2>Poste recherché</h2>" +
                 "<p> Un " + objectif.getStatut().getValue() + " en tant que " + objectif.getDescription() + "</p>";
@@ -37,7 +37,7 @@ public class HTMLFormat implements Page {
     }
 
     @Override
-    public String getInformationOnProfession(Prof prof) {
+    public String getAllInformationOnProfession(Prof prof) {
         if (prof == null) {
             return "";
         }
@@ -60,7 +60,7 @@ public class HTMLFormat implements Page {
     }
 
     @Override
-    public String getInformationOnMaxDiploma(Competences competences) {
+    public String getAllInformationOnMaxDiploma(Competences competences) {
         Diplome maxDiplome = competences.getDiplome().getFirst();
         for (Diplome d : competences.getDiplome()) {
             if (d.getNiveau() > maxDiplome.getNiveau()) {
@@ -163,12 +163,54 @@ public class HTMLFormat implements Page {
                     .append(cv.getId()).append("\" id=\"cv_id\">").append(cv.getId()).append("</a>");
             body.append("<div>");
             body.append(this.getInformationOnIdentity(cv.getIdentite(), false));
-            body.append(this.getInformationOnObjective(cv.getObjectif()));
-            body.append(this.getInformationOnMaxDiploma(cv.getCompetences()));
+            body.append(this.getAllInformationOnObjective(cv.getObjectif()));
+            body.append(this.getAllInformationOnMaxDiploma(cv.getCompetences()));
             body.append("</div></div>");
         }
 
         String returnHome ="<footer><a href=\"/\">Retour sur la page d'accueil</a></footer>";
+        return "<html>" + head + body + returnHome + "</body>";
+    }
+
+    @Override
+    public String getAllInformationOnCv(Cv cv, int id) {
+        String head = "<head> <meta charset=\"UTF-8\">" +
+                " <title> Détail d'un CV </title> " +
+                " <link rel=\"stylesheet\" href=\"/web/styles/detail_cv.css\"> " +
+                "</head>";
+
+        StringBuilder body = new StringBuilder("<body>");
+
+
+        if (cv != null) {
+            body.append("<div class=\"cv\">");
+            body.append(this.getInformationOnIdentity(cv.getIdentite(), true));
+            body.append(this.getAllInformationOnObjective(cv.getObjectif()));
+
+            if (cv.getProf() != null) {
+                body.append("<h2>Les professions</h2>");
+                body.append(this.getAllInformationOnProfession(cv.getProf()));
+            }
+            body.append("<h2>Les diplomes</h2>");
+            body.append(this.getAllInformationOnDiplomas(cv.getCompetences()));
+            if (cv.getCompetences().getCertif() != null && !cv.getCompetences().getCertif().isEmpty()) {
+                body.append("<h2>Les certificats</h2>");
+                body.append(this.getAllInformationOnCertificate(cv.getCompetences()));
+            }
+
+            if (cv.getDivers() != null) {
+                body.append("<h2>Les langues</h2>");
+                body.append(this.getAllInformationOnLanguages(cv.getDivers()));
+                if (cv.getDivers().getAutre() != null && !cv.getDivers().getAutre().isEmpty()) {
+                    body.append("<h2>Les informations complémentaires</h2>");
+                    body.append(this.getAllComplementaryInformation(cv.getDivers()));
+                }
+            }
+            body.append("</div>");
+        } else {
+            body.append("<div id=\"error\"> ").append(id).append(" | ERROR </div>");
+        }
+        String returnHome = "<footer><a href=\"/\">Retour sur la page d'accueil</a></footer>";
         return "<html>" + head + body + returnHome + "</body>";
     }
 }

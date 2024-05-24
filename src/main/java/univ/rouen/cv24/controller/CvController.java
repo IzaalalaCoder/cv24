@@ -48,79 +48,19 @@ public class CvController {
     @GetMapping(value = "html", produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<String> getAllDetailInHTMLFormat(@RequestParam(value = "id") Integer id) {
         Page p = new HTMLFormat();
-        String head = "<head> <meta charset=\"UTF-8\">" +
-                " <title> Détail d'un CV </title> " +
-                " <link rel=\"stylesheet\" href=\"/web/styles/detail_cv.css\"> " +
-                "</head>";
-
-        StringBuilder body = new StringBuilder("<body>");
         Cv cv = cvService.getCv(id);
 
-        if (cv != null) {
-            body.append("<div class=\"cv\">");
-            body.append(p.getInformationOnIdentity(cv.getIdentite(), true));
-            body.append(p.getInformationOnObjective(cv.getObjectif()));
-
-            if (cv.getProf() != null) {
-                body.append("<h2>Les professions</h2>");
-                body.append(p.getInformationOnProfession(cv.getProf()));
-            }
-            body.append("<h2>Les diplomes</h2>");
-            body.append(p.getAllInformationOnDiplomas(cv.getCompetences()));
-            if (cv.getCompetences().getCertif() != null && !cv.getCompetences().getCertif().isEmpty()) {
-                body.append("<h2>Les certificats</h2>");
-                body.append(p.getAllInformationOnCertificate(cv.getCompetences()));
-            }
-
-            if (cv.getDivers() != null) {
-                body.append("<h2>Les langues</h2>");
-                body.append(p.getAllInformationOnLanguages(cv.getDivers()));
-                if (cv.getDivers().getAutre() != null && !cv.getDivers().getAutre().isEmpty()) {
-                    body.append("<h2>Les informations complémentaires</h2>");
-                    body.append(p.getAllComplementaryInformation(cv.getDivers()));
-                }
-            }
-            body.append("</div>");
-        } else {
-            body.append("<div id=\"error\"> ").append(id).append(" | ERROR </div>");
-        }
-        String returnHome = "<footer><a href=\"/\">Retour sur la page d'accueil</a></footer>";
-        String result = "<html>" + head + body + returnHome + "</body>";
-
         int valueStatus = cv != null ? HttpStatus.OK.value() : HttpStatus.NOT_FOUND.value();
-        return ResponseEntity.status(valueStatus).body(result);
+        return ResponseEntity.status(valueStatus).body(p.getAllInformationOnCv(cv, id));
     }
 
     @GetMapping(value = "xml", produces = "application/xml")
     public ResponseEntity<String> getAllDetailInXMLFormat(@RequestParam(value = "id") Integer id) {
+        Page p = new XMLFormat();
         Cv cv = cvService.getCv(id);
 
-        String result = "<response><id>" + id + "</id>";
-        if (cv != null) {
-            Page p = new XMLFormat();
-            result += p.getInformationOnIdentity(cv.getIdentite(), true)
-                    + p.getInformationOnObjective(cv.getObjectif());
-            if (cv.getProf() != null) {
-                result += p.getInformationOnProfession(cv.getProf());
-            }
-            result += p.getAllInformationOnDiplomas(cv.getCompetences());
-
-            if (cv.getCompetences().getCertif() != null && !cv.getCompetences().getCertif().isEmpty()) {
-                result += p.getAllInformationOnCertificate(cv.getCompetences());
-            }
-            if (cv.getDivers() != null) {
-                result += p.getAllInformationOnLanguages(cv.getDivers());
-                if (cv.getDivers().getAutre() != null && !cv.getDivers().getAutre().isEmpty()) {
-                    result += p.getAllComplementaryInformation(cv.getDivers());
-                }
-            }
-        } else {
-            result += "<status>ERROR</status>";
-        }
-        result += "</response>";
-
         int valueStatus = cv != null ? HttpStatus.OK.value() : HttpStatus.NOT_FOUND.value();
-        return ResponseEntity.status(valueStatus).body(result);
+        return ResponseEntity.status(valueStatus).body(p.getAllInformationOnCv(cv, id));
     }
 
     @PostMapping(value = "insert", consumes = "application/xml", produces = "application/xml")

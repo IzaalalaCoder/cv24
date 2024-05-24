@@ -25,7 +25,7 @@ public class XMLFormat implements Page {
     }
 
     @Override
-    public String getInformationOnObjective(Objectif objectif) {
+    public String getAllInformationOnObjective(Objectif objectif) {
         String objectifResult = "<objectif statut=\"" + objectif.getStatut().getValue() + "\">";
         objectifResult += objectif.getDescription() + "</objectif>";
 
@@ -33,7 +33,7 @@ public class XMLFormat implements Page {
     }
 
     @Override
-    public String getInformationOnProfession(Prof prof) {
+    public String getAllInformationOnProfession(Prof prof) {
         if (prof == null) {
             return "";
         }
@@ -56,7 +56,7 @@ public class XMLFormat implements Page {
     }
 
     @Override
-    public String getInformationOnMaxDiploma(Competences competences) {
+    public String getAllInformationOnMaxDiploma(Competences competences) {
         Diplome maxDiplome = competences.getDiplome().getFirst();
         for (Diplome d : competences.getDiplome()) {
             if (d.getNiveau() > maxDiplome.getNiveau()) {
@@ -155,13 +155,41 @@ public class XMLFormat implements Page {
             String idResult = "<id>" + cv.getId() + "</id>";
 
             String identityResult = this.getInformationOnIdentity(cv.getIdentite(), false);
-            String objectiveResult = this.getInformationOnObjective(cv.getObjectif());
-            String diplomaResult = this.getInformationOnMaxDiploma(cv.getCompetences());
+            String objectiveResult = this.getAllInformationOnObjective(cv.getObjectif());
+            String diplomaResult = this.getAllInformationOnMaxDiploma(cv.getCompetences());
 
             result.append("<cv>").append(idResult).append(identityResult).append(objectiveResult)
                     .append(diplomaResult).append("</cv>");
         }
         result.append("</response>");
         return result.toString();
+    }
+
+    @Override
+    public String getAllInformationOnCv(Cv cv, int id) {
+        String result = "<response><id>" + id + "</id>";
+        if (cv != null) {
+            Page p = new XMLFormat();
+            result += p.getInformationOnIdentity(cv.getIdentite(), true)
+                    + p.getAllInformationOnObjective(cv.getObjectif());
+            if (cv.getProf() != null) {
+                result += p.getAllInformationOnProfession(cv.getProf());
+            }
+            result += p.getAllInformationOnDiplomas(cv.getCompetences());
+
+            if (cv.getCompetences().getCertif() != null && !cv.getCompetences().getCertif().isEmpty()) {
+                result += p.getAllInformationOnCertificate(cv.getCompetences());
+            }
+            if (cv.getDivers() != null) {
+                result += p.getAllInformationOnLanguages(cv.getDivers());
+                if (cv.getDivers().getAutre() != null && !cv.getDivers().getAutre().isEmpty()) {
+                    result += p.getAllComplementaryInformation(cv.getDivers());
+                }
+            }
+        } else {
+            result += "<status>ERROR</status>";
+        }
+        result += "</response>";
+        return result;
     }
 }
