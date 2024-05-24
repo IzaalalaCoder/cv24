@@ -140,7 +140,7 @@ public class HTMLFormat implements Page {
         StringBuilder informationsComments = new StringBuilder("<div class=\"comments\">");
         for (Autre a : divers.getAutre()) {
             String autre = "<div> ";
-            autre += "<h2>" + a.getTitre() + "</div>";
+            autre += "<h2>" + a.getTitre() + "</h2>";
             if (a.getComment() != null) {
                 autre += "<p>" + a.getComment() + "</p>";
             }
@@ -152,7 +152,7 @@ public class HTMLFormat implements Page {
     }
 
     public String getAllCv(List<Cv> cvs) {
-        String head = "<head> <meta charset=\"UTF-8\">" +
+        String head = "<!DOCTYPE html><html lang=\"fr\"><head> <meta charset=\"UTF-8\">" +
                 " <title> Liste de CV </title> " +
                 " <link rel=\"stylesheet\" href=\"/web/styles/detail_cv.css\"> " +
                 "</head>";
@@ -160,7 +160,7 @@ public class HTMLFormat implements Page {
         StringBuilder body = new StringBuilder("<body>");
         for (Cv cv : cvs) {
             body.append("<div class=\"info\"><a href=\"/cv24/html?id=")
-                    .append(cv.getId()).append("\" id=\"cv_id\">").append(cv.getId()).append("</a>");
+                    .append(cv.getId()).append("\" class=\"cv_id\">").append(cv.getId()).append("</a>");
             body.append("<div>");
             body.append(this.getInformationOnIdentity(cv.getIdentite(), false));
             body.append(this.getAllInformationOnObjective(cv.getObjectif()));
@@ -169,12 +169,12 @@ public class HTMLFormat implements Page {
         }
 
         String returnHome ="<footer><a href=\"/\">Retour sur la page d'accueil</a></footer>";
-        return "<html>" + head + body + returnHome + "</body>";
+        return head + body + returnHome + "</body></html>";
     }
 
     @Override
     public String getAllInformationOnCv(Cv cv, int id) {
-        String head = "<head> <meta charset=\"UTF-8\">" +
+        String head = "<!DOCTYPE html><html lang=\"fr\"><head> <meta charset=\"UTF-8\">" +
                 " <title> Détail d'un CV </title> " +
                 " <link rel=\"stylesheet\" href=\"/web/styles/detail_cv.css\"> " +
                 "</head>";
@@ -197,7 +197,6 @@ public class HTMLFormat implements Page {
                 body.append("<h2>Les certificats</h2>");
                 body.append(this.getAllInformationOnCertificate(cv.getCompetences()));
             }
-
             if (cv.getDivers() != null) {
                 body.append("<h2>Les langues</h2>");
                 body.append(this.getAllInformationOnLanguages(cv.getDivers()));
@@ -211,6 +210,6 @@ public class HTMLFormat implements Page {
             body.append("<div id=\"error\"> ").append(id).append(" | ERROR </div>");
         }
         String returnHome = "<footer><a href=\"/\">Retour sur la page d'accueil</a></footer>";
-        return "<html>" + head + body + returnHome + "</body>";
+        return head + body + returnHome + "</body></html>";
     }
 }
