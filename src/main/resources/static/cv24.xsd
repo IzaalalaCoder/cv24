@@ -191,7 +191,7 @@
 
     <xs:simpleType name="numberTelType">
         <xs:restriction base="xs:string">
-            <xs:pattern value="0[1-9]{9}"/>
+            <xs:pattern value="0[0-9]{9}"/>
         </xs:restriction>
     </xs:simpleType>
 

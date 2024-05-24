@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cv24 xmlns="http://univ.fr/cv24">
+    <identite>
+        <genre>Mme</genre>
+        <nom>TREMBLAY</nom>
+        <prenom>Madeleine</prenom>
+    </identite>
+    <objectif statut="stage">Développeuse en cybersécurité</objectif>
+    <competences>
+        <diplome niveau="5">
+            <date>2022-06-15</date>
+            <titre>Bac S</titre>
+        </diplome>
+    </competences>
+</cv24>

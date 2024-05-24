@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cv24 xmlns="http://univ.fr/cv24">
+    <identite>
+        <genre>M.</genre>
+        <nom>DESJARDIN</nom>
+        <prenom>Benjamin</prenom>
+        <tel>0299947061</tel>
+        <mel>benjamin.desjardin@gmail.com</mel>
+    </identite>
+    <objectif statut="emploi">Data science</objectif>
+    <prof>
+        <detail>
+            <datedeb>2015-06-01T00:00:00</datedeb>
+            <datefin>2015-09-30T00:00:00</datefin>
+            <titreDetail>Stage développeur</titreDetail>
+        </detail>
+    </prof>
+    <competences>
+        <diplome niveau="5">
+            <date>2009-06-15</date>
+            <institut>Lycee Guy Maupassant</institut>
+            <titre>Bac S</titre>
+        </diplome>
+        <diplome niveau="6">
+            <date>2012-06-15</date>
+            <institut>UFR Paris-Cité</institut>
+            <titre>Licence informatique</titre>
+        </diplome>
+        <diplome niveau="7">
+            <date>2015-06-01</date>
+            <institut>UFR Paris-Cité</institut>
+            <titre>Master Data</titre>
+        </diplome>
+        <certif>
+            <datedeb>2012-09-15T00:00:00</datedeb>
+            <datefin>2012-09-15T00:00:00</datefin>
+            <titreCert>PIX</titreCert>
+        </certif>
+    </competences>
+    <divers>
+        <lv cert="MAT" lang="Francais" nivi="950" nivs="C1"/>
+        <lv cert="CLES" lang="Anglais" nivi="700" nivs="B2"/>
+        <autre comment="Admire la photographie" titre="Photo"/>
+    </divers>
+</cv24>
