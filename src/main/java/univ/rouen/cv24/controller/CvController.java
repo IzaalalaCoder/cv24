@@ -10,9 +10,6 @@ import univ.rouen.cv24.templates.HTMLFormat;
 import univ.rouen.cv24.templates.Page;
 import univ.rouen.cv24.templates.XMLFormat;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -107,46 +104,16 @@ public class CvController {
             ) {
             return "<response><status>ERROR</status></response>";
         }
-
         if (date.length() == "yyyy-MM-dd".length()) {
             date += "T00:00:00";
         }
+
+        List<Cv> cvSearch;
         final LocalDateTime dateTime;
         try {
-            dateTime = LocalDateTime.parse(date);
+            cvSearch = this.cvService.searchCv(obj, date);
         } catch (Exception e) {
             return "<response><status>ERROR</status></response>";
-        }
-
-        List<Cv> cvSearch = new ArrayList<>();
-        for (Cv cv : this.cvService.getAllCvs()) {
-            if (cv.getObjectif().getDescription().contains(obj)) {
-                cvSearch.add(cv);
-            } else if (!cvSearch.contains(cv) && cv.getProf() != null) {
-                for (Detail d : cv.getProf().getDetail()) {
-                    if (d.getDatedeb().isAfter(dateTime) || d.getDatedeb().equals(dateTime)) {
-                        cvSearch.add(cv);
-                    }
-                }
-            } else if (!cvSearch.contains(cv)) {
-                for (Certif certif : cv.getCompetences().getCertif()) {
-                    if (certif.getDatedeb().isAfter(dateTime) || certif.getDatedeb().equals(dateTime)) {
-                        cvSearch.add(cv);
-                    }
-                }
-            }
-            if (!cvSearch.contains(cv)) {
-                List<Diplome> diplomas = cv.getCompetences().getDiplome();
-                for (Diplome diplome : diplomas) {
-                    Date dateOfObtention = diplome.getDate();
-                    LocalDateTime localDateDiplome = dateOfObtention.toInstant()
-                        .atZone(ZoneId.systemDefault()).toLocalDateTime();
-                    if (localDateDiplome.isAfter(dateTime) || localDateDiplome.equals(dateTime)) {
-                        cvSearch.add(cv);
-                        break;
-                    }
-                }
-            }
         }
 
         // Return appropriate response if no CVs are found
