@@ -9,4 +9,4 @@ Il s'agit d'un apprentissage du framework SpringBoot tout en manipulant les CV. 
 
 # Rapport de projet 
 
-Le rapport se trouve dans le fichier 
+Le rapport se trouve dans le fichier XML_KHABOURI.pdf
